@@ -2,15 +2,28 @@ package arquitectura.apicatalogapi.application.dto;
 
 import java.util.List;
 
-import lombok.Data;
+import org.springframework.validation.annotation.Validated;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+@Validated
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 @Data
 public class AplicacionDto {
 
-    private String name;
-
-    private String buildVersion;
-
-    private List<EndpointDto> instances;
+	@JsonProperty(value = "nombre")
+    private String version;
+	
+	@JsonProperty(value = "nombre")
+    private String nombre;
+	
+    private List<EndpointDto> endpoints;
+    
+    private List<TagDto> tags;
 
 }
