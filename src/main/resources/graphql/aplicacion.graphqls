@@ -1,0 +1,28 @@
+type Aplicacion {
+	id: ID!
+	nombre: String!
+	version: String!
+	endpoints: [Endpoint!]
+	tags: [Tag!]
+}
+
+input AplicacionInput{
+	nombre: String! 
+	version: String!
+}
+
+input AplicacionInputUpdate{
+	nombre: String
+	version: String
+}
+
+type Query {
+    getAplicacionById(id: ID!): Aplicacion
+    getAllAplicaciones:[Aplicacion]!
+}
+
+type Mutation {
+    createAplicacion(input: AplicacionInput!): Aplicacion!
+    deleteAplicacion(id: ID!): Boolean
+    updateAplicacion(id: ID!, input: AplicacionInputUpdate!): Aplicacion!
+}

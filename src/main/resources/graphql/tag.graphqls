@@ -1,0 +1,21 @@
+type Tag {
+	id: ID!
+	nombre: String!
+	endpoints: [Endpoint]!
+	aplicacion: Aplicacion!
+}
+
+input TagInput {
+	nombre: String!
+}
+
+extend type Query {
+    getTagById(id: ID!): Tag
+    getAllTags:[Tag]!
+}
+
+extend type Mutation{
+	createTag(input: TagInput!, aplicacion: ID!, endpoints: [ID!]): Tag!
+	updateTag(id: ID!, input: TagInput!): Tag!
+	deleteTag(id: ID!): Boolean
+}

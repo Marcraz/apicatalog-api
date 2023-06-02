@@ -1,0 +1,34 @@
+type Endpoint {
+	id: ID!
+	nombre: String!
+	url: String!
+	tipoOP: String!
+	nombreOp: String!
+	aplicacion: Aplicacion!
+	tags: [Tag!] 
+}
+
+input EndpointInput{
+	nombre: String!
+	url: String!
+	tipoOP: String!
+	nombreOp: String!
+}
+
+input EndpointInputUpdate{
+	nombre: String
+	url: String
+	tipoOP: String
+	nombreOp: String
+}
+
+extend type Query {
+    getEndpointById(id: ID!): Endpoint
+    getAllEndpoints:[Endpoint]!
+}
+
+extend type Mutation {
+	createEndpoint(input: EndpointInput!, aplicacion: ID!): Endpoint!
+	deleteEndpoint(id: ID!): Boolean
+	updateEndpoint(id: ID!, input: EndpointInputUpdate!): Endpoint!
+}

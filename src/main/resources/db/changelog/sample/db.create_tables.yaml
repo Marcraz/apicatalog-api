@@ -1,0 +1,161 @@
+databaseChangeLog:
+# databaseChangeLog: #quitar '#' si no existian anteriormente tablas en el fichero
+- changeSet:
+    id: init create table APLICACION
+    author: marcos
+    comment: changelog to create APLICACION domain entities
+    dbms: h2,mysql
+    changes:
+# APLICACION
+    - createTable:
+        tableName: APLICACION
+        columns:
+        - column: 
+            name: VERSION
+            type: VARCHAR(20)
+            constraints:
+                nullable: false
+        - column: 
+            name: NOMBRE
+            type: VARCHAR(60)
+            constraints:
+                nullable: false
+        - column: 
+            name: ID
+            type: SERIAL
+            constraints:
+                primaryKey: true
+                nullable: false
+- changeSet:
+    id: init create table TAG
+    author: generador-codigo-consum
+    comment: changelog to create TAG domain entities
+    dbms: h2,mysql
+    changes:
+# TAG
+    - createTable:
+        tableName: TAG
+        columns:
+        - column: 
+            name: ID
+            type: SERIAL
+            constraints:
+                primaryKey: true
+                nullable: false
+        - column: 
+            name: NOMBRE
+            type: VARCHAR(60)
+            constraints:
+                nullable: false 
+        - column: 
+            name: IDAPLICACION
+            type: BIGINT
+            constraints:
+                nullable: false
+                referencedColumnNames: ID
+                referencedTableName: APLICACION
+                foreignKeyName: TAG_APLICACION_ID_FK
+- changeSet:
+    id: init create table ENDPOINT
+    author: marcos
+    comment: changelog to create TAG domain entities
+    dbms: h2,mysql
+    changes:
+# ENDPOINT
+    - createTable:
+        tableName: ENDPOINT
+        columns:
+        - column: 
+            name: NOMBRE
+            type: VARCHAR(300)
+            constraints:
+                nullable: false
+        - column: 
+            name: URL
+            type: VARCHAR(300)
+            constraints:
+                nullable: false
+        - column: 
+            name: ID
+            type: SERIAL
+            constraints:
+                primaryKey: true
+                nullable: false              
+        - column: 
+            name: TIPOOP
+            type: VARCHAR(10)
+            constraints:
+                nullable: false
+        - column: 
+            name: NOMBREOP
+            type: VARCHAR(100)
+            constraints:
+                nullable: false
+        - column: 
+            name: IDAPLICACION
+            type: BIGINT
+            constraints:
+                nullable: false
+                referencedColumnNames: ID
+                referencedTableName: APLICACION
+                foreignKeyName: ENDPOINT_APLICACION_ID_FK  
+- changeSet:
+    id: init create table TAG_ENDPOINT
+    author: marcos
+    comment: changelog to create TAG domain entities
+    dbms: h2,mysql
+    changes:
+# TAG_ENDPOINT
+    - createTable:
+        tableName: TAG_ENDPOINT
+        columns:
+        - column: 
+            name: TAG_ID
+            type: BIGINT
+            constraints:
+                nullable: false
+                referencedColumnNames: ID
+                referencedTableName: TAG
+                foreignKeyName: TAG_ENDPOINT_TAG_IF_FK  
+        - column: 
+            name: ENDPOINT_ID
+            type: BIGINT
+            constraints:
+                nullable: false
+                referencedColumnNames: ID
+                referencedTableName: ENDPOINT
+                foreignKeyName: TAG_ENDPOINT_ENDPOINT_ID_FK  
+#IncrementosIDTablas
+- changeSet:
+    id: addAutoIncrement-aplicacion  
+    author: marcos
+    changes:  
+    - addAutoIncrement:
+        columnDataType: SERIAL 
+        columnName: ID 
+        defaultOnNull: false  
+        generationType: ALWAYS  
+        incrementBy: 1  
+        tableName: APLICACION
+- changeSet:
+    id: addAutoIncrement-endpoint  
+    author: marcos
+    changes:  
+    - addAutoIncrement:
+        columnDataType: SERIAL  
+        columnName: ID 
+        defaultOnNull: false  
+        generationType: ALWAYS  
+        incrementBy: 1  
+        tableName: ENDPOINT
+- changeSet:
+    id: addAutoIncrement-tag  
+    author: marcos
+    changes:  
+    - addAutoIncrement:
+        columnDataType: SERIAL 
+        columnName: ID 
+        defaultOnNull: false  
+        generationType: ALWAYS  
+        incrementBy: 1  
+        tableName: TAG
