@@ -16,7 +16,10 @@ import lombok.NoArgsConstructor;
 @Data
 public class TagDto {
 
+	@JsonProperty(value = "nombre")
 	private String nombre;
+	
     private AplicacionDto aplicacion;
+	
     private List<EndpointDto> endpoints;
 }
