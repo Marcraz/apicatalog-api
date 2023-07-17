@@ -1,6 +1,7 @@
 package arquitectura.apicatalogapi.application.dto;
 
-import java.util.List;
+
+import javax.validation.constraints.NotNull;
 
 import org.springframework.validation.annotation.Validated;
 
@@ -16,10 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class TagDto {
 
+	@NotNull
 	@JsonProperty(value = "nombre")
 	private String nombre;
-	
-    private AplicacionDto aplicacion;
-	
-    private List<EndpointDto> endpoints;
 }
