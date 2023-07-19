@@ -20,18 +20,13 @@ public class AplicacionDto {
 
 	@NotNull
 	@JsonProperty(value = "version")
-    private String version;
-	
+	private String version;
+
 	@NotNull
 	@JsonProperty(value = "nombre")
-    private String nombre;
-	
+	private String nombre;
+
 	@NotNull
 	@JsonProperty(value = "endpoints")
-    private List<EndpointDto> endpoints;
-    
-	@NotNull
-	@JsonProperty(value = "tags")
-    private List<TagDto> tags;
-
+	private List<EndpointDto> endpoints;
 }

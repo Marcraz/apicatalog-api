@@ -29,25 +29,25 @@ import lombok.NoArgsConstructor;
 @Table(name = "TAG")
 public class Tag implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    public Tag(Integer id) {
-        this.id = id;
-    }
+	public Tag(Integer id) {
+		this.id = id;
+	}
 
-    @Column(name = "ID", nullable = false, updatable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    private int id;
+	@Column(name = "ID", nullable = false, updatable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	private int id;
 
-    @Column(name = "NOMBRE", nullable = false)
-    private String nombre;
+	@Column(name = "NOMBRE", nullable = false)
+	private String nombre;
 
-    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
-    @JoinTable(name = "TAG_ENDPOINT", joinColumns = @JoinColumn(name = "TAG_ID"), inverseJoinColumns = @JoinColumn(name = "ENDPOINT_ID"))
-    private List<Endpoint> endpoints;
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
+	@JoinTable(name = "TAG_ENDPOINT", joinColumns = @JoinColumn(name = "TAG_ID"), inverseJoinColumns = @JoinColumn(name = "ENDPOINT_ID"))
+	private List<Endpoint> endpoints;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "IDAPLICACION", nullable = false)
-    private Aplicacion aplicacion;
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@JoinColumn(name = "IDAPLICACION", nullable = false)
+	private Aplicacion aplicacion;
 }
