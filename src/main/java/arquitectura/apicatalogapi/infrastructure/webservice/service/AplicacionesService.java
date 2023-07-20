@@ -39,12 +39,13 @@ public class AplicacionesService {
 			for (Endpoint endpoint : app.getEndpoints()) {
 				endpoint.setAplicacion(app);
 				app.setTags(endpoint.getTags());
+
 				for (Tag tag : endpoint.getTags()) {
 					tag.setAplicacion(app);
-					tag.setEndpoints(app.getEndpoints());
 				}
 			}
 		}
+
 		repository.saveAll(aplicaciones);
 	}
 }
