@@ -35,33 +35,32 @@ public class AplicacionesService {
 	}
 
     public void importarAplicacionesInDB() {
-
         List<Aplicacion> aplicaciones = mapper.fromEntityList(getAplicaciones());
 
-		for (Aplicacion app : aplicaciones) {
+        for (Aplicacion app : aplicaciones) {
+            Map<String, List<Endpoint>> endpointsPorTag = new HashMap<>();
 
-            // Map creado para almacenar los tags para añadirlos una vez se hayan recorrido
-            // todos los endpoints
-            Map<String, Tag> tags = new HashMap<>();
-
-			for (Endpoint endpoint : app.getEndpoints()) {
-				endpoint.setAplicacion(app);
+            for (Endpoint endpoint : app.getEndpoints()) {
+                endpoint.setAplicacion(app);
 
                 for (Tag tag : endpoint.getTags()) {
                     tag.setAplicacion(app);
-
-                    // Si el nombre no existe en el map lo añadimos, si no, no lo añadimos para no
-                    // repetir nombres
-                    if (!tags.containsKey(tag.getNombre())) {
-                        tag.setAplicacion(app);
-                        tags.put(tag.getNombre(), tag);
-                    }
+                    endpointsPorTag.computeIfAbsent(tag.getNombre(), k -> new ArrayList<>()).add(endpoint);
                 }
-			}
-            List<Tag> tagList = new ArrayList<>(tags.values());
-            app.setTags(tagList);
-		}
+            }
 
-		repository.saveAll(aplicaciones);
+            List<Tag> tagList = new ArrayList<>();
+            for (Map.Entry<String, List<Endpoint>> entry : endpointsPorTag.entrySet()) {
+                Tag tag = new Tag();
+                tag.setNombre(entry.getKey());
+                tag.setAplicacion(app);
+                tag.setEndpoints(entry.getValue());
+                tagList.add(tag);
+            }
+
+            app.setTags(tagList);
+        }
+
+        repository.saveAll(aplicaciones);
 	}
 }
