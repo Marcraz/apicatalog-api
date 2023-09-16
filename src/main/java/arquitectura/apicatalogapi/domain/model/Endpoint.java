@@ -25,38 +25,38 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="Endpoint")
+@Table(name = "Endpoint")
 @EqualsAndHashCode(callSuper = false)
-public class Endpoint implements Serializable{
+public class Endpoint implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    public Endpoint(Integer id) {
-        this.id = id;
-    }
-	
+	public Endpoint(Integer id) {
+		this.id = id;
+	}
+
 	@Column(name = "NOMBRE", nullable = false)
-    private String nombre;
+	private String nombre;
 
-    @Column(name = "URL", nullable = false)
-    private String url;
+	@Column(name = "URL", nullable = false)
+	private String url;
 
-    @Column(name = "ID", nullable = false, updatable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    private int id;
+	@Column(name = "ID", nullable = false, updatable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	private int id;
 
-    @Column(name = "TIPOOP", nullable = false)
-    private String tipoOP;
+	@Column(name = "TIPOOP", nullable = false)
+	private String tipoOP;
 
-    @Column(name = "NOMBREOP", nullable = false)
-    private String nombreOp;
+	@Column(name = "NOMBREOP", nullable = false)
+	private String nombreOp;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "IDAPLICACION", nullable = false)
-    private Aplicacion aplicacion;
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@JoinColumn(name = "IDAPLICACION", nullable = false)
+	private Aplicacion aplicacion;
 
-    @ManyToMany(mappedBy = "endpoints", fetch = FetchType.EAGER)
-    private List<Tag> tags;
+	@ManyToMany(mappedBy = "endpoints", fetch = FetchType.EAGER)
+	private List<Tag> tags;
 
 }
